@@ -33,14 +33,13 @@ The following parameters must be provided in the input file:
 | weblogicOperatorImagePullPolicy | The image pull policy for the operator docker image.  Allowed values are 'Always', 'Never' and 'IfNotPresent' | IfNotPresent |
 | weblogicOperatorImagePullSecretName | Name of the Kubernetes secret to access the Docker Store to pull the WebLogic Server Docker image.  The presence of the secret will be validated when this parameter is enabled. | |
 
-Decide which REST configuration to use
+###Decide which REST configuration to use
 The operator provides three REST certificate options:
 *	none will disable the REST server.
 *	self-signed-cert will generate self-signed certificates.
 *	custom-cert provides a mechanism to provide certificates that were created and signed by some other means.
 Decide which options to enable
 The operator provides some optional features that can be enabled in the configuration file.
-
 ###Load Balancing
 The operator can install the Traefik Ingress provider to provide load balancing for web applications running in WebLogic clusters. If enabled, an instance of Traefik and an Ingress will be created for each WebLogic cluster. Additional configuration is performed when creating the domain.
 
