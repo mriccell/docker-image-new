@@ -1,6 +1,8 @@
-This Docker Image contains the Oracle WebLogic Server Kubernetes Operator, which is available and open sourced at (https://oracle.github.io/weblogic-kubernetes-operator).  The operator can manage any number of WebLogic domains running in a Kubernetes environment.  It provides a mechanism to create domains, automates domain startup, allows scaling WebLogic clusters up and down either manually (on-demand) or through integration with WLDF or Prometheus, manages load balancing for web applications deployed in WebLogic clusters, and provides integration to ElasticSearch, Logstash and Kibana.
-The operator uses the standard Oracle WebLogic Server 12.2.1.3 Docker image, from the Docker store.  It treats this image as immutable, and all of the state is persisted in a Kubernetes persistent volume.  This allows us to treat all of the pods as throwaway and replaceable, and it completely eliminates the need to manage state written into Docker containers at runtime (because there is none).
-The operator can expose the WebLogic administration console to external users (if desired), and can also allow external T3 access, e.g. for WLST.  Domains can talk to each other, allowing distributed transactions, etc. All of the pods are configured with Kubernetes liveness and readiness probes, so that Kubernetes can automatically restart failing pods, and the load balancer configuration can include only those managed servers in the cluster that are actually ready to service user requests.
+This Docker Image contains the Oracle WebLogic Server Kubernetes Operator, which is available and open sourced at (https://oracle.github.io/weblogic-kubernetes-operator).  The operator can manage any number of WebLogic Server domains running in a Kubernetes environment.  It provides a mechanism to create domains, automates domain startup, allows scaling WebLogic Server clusters up and down either manually (on-demand) or through integration with the WebLogic Diagnostic Framework (WLDF) or Prometheus, manages load balancing for web applications deployed in WebLogic Server clusters, and provides integration to ElasticSearch, Logstash and Kibana.
+
+The WebLogic Server Kubernetes Operator uses the standard Oracle WebLogic Server 12.2.1.3 Docker image, from the Docker store.  It treats this image as immutable, and all of the state is persisted in a Kubernetes persistent volume.  This allows us to treat all of the pods as throwaway and replaceable, and it completely eliminates the need to manage state written into Docker containers at runtime (because there is none).
+
+The WebLogic Server Kubernetes Operator can expose the WebLogic Server administration console to external users (if desired), and can also allow external T3 access, e.g. for WLST.  Domains can talk to each other, allowing distributed transactions, etc. All of the pods are configured with Kubernetes liveness and readiness probes, so that Kubernetes can automatically restart failing pods, and the load balancer configuration can include only those managed servers in the WebLogic Server cluster that are actually ready to service user requests.
 
 # Getting Started
 ## The Oracle WebLogic Server Kubernetes Operator has the following requirements:
@@ -33,15 +35,16 @@ The following parameters must be provided in the input file:
 | weblogicOperatorImagePullPolicy | The image pull policy for the operator docker image.  Allowed values are 'Always', 'Never' and 'IfNotPresent' | IfNotPresent |
 | weblogicOperatorImagePullSecretName | Name of the Kubernetes secret to access the Docker Store to pull the WebLogic Server Docker image.  The presence of the secret will be validated when this parameter is enabled. | |
 
-###Decide which REST configuration to use
+### Decide which REST configuration to use
 The operator provides three REST certificate options:
 *	none will disable the REST server.
 *	self-signed-cert will generate self-signed certificates.
 *	custom-cert provides a mechanism to provide certificates that were created and signed by some other means.
 Decide which options to enable
 The operator provides some optional features that can be enabled in the configuration file.
-###Load Balancing
-The operator can install the Traefik Ingress provider to provide load balancing for web applications running in WebLogic clusters. If enabled, an instance of Traefik and an Ingress will be created for each WebLogic cluster. Additional configuration is performed when creating the domain.
+
+### Load Balancing
+The WebLogic Server Kubernetes Operator can install the Traefik Ingress controller to provide load balancing for web applications running in WebLogic Server clusters. If enabled, an instance of Traefik and an Ingress will be created for each WebLogic Server cluster. Additional configuration is performed when creating the domain.
 
 **Note:** that the Technology Preview release provides only basic load balancing:
 *	Only HTTP(S) is supported. Other protocols are not supported.
@@ -50,7 +53,7 @@ The operator can install the Traefik Ingress provider to provide load balancing 
  
 The default configuration gives round robin routing and WebLogic Server will provide cookie-based session affinity.
 
-**Note:** that Ingresses are not created for servers that are not part of a WebLogic cluster, including the Administration Server. Such servers are exposed externally using NodePort services.
+**Note:** that Ingresses are not created for servers that are not part of a WebLogic Server cluster, including the administration server. Such servers are exposed externally using NodePort services.
 
 ### Log integration with ELK
 The operator can install the ELK stack and publish its logs into ELK. If enabled, ElasticSearch and Kibana will be installed in the default namespace, and a logstash pod will be created in the operator’s namespace. Logstash will be configured to publish the operator’s logs into Elasticsearch, and the log data will be available for visualization and analysis in Kibana.
@@ -72,6 +75,6 @@ The script will carry out the following actions:
 *	If requested, ELK will be deployed and logstash will be configured for the operator’s logs.
 
 The script will validate each action before it proceeds.
-This will deploy the operator in your Kubernetes cluster.  Please refer to the documentation for next steps including using the REST services, creating a WebLogic domain, starting a domain, and so on. 
+This will deploy the operator in your Kubernetes cluster.  Please refer to the documentation for next steps including using the REST services, creating a WebLogic Server domain, starting a domain, and so on. 
 
 
