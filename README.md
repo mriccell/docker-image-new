@@ -19,6 +19,7 @@ And Open Source projects:
 Oracle Linux images can be found in the [`OracleLinux-images`](https://github.com/oracle/docker/tree/OracleLinux-images) branch of this repository.
 
 For support and certification information, please consult the documentation for each product.
+
         ADMIN_NAME=admin-server
         ADMIN_HOST=wlsadmin
         MANAGED_SERVER_NAME_BASE=managed-server
